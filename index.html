@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کورد کۆد | پلاتفۆرمی هاوبەشی گەنجان</title>
+    <title>کورد کۆد & مادئەپ | هاوبەشی گەنجان</title>
     <style>
-        /* هەموو دیزاینەکە لێرە جێگیر کراوە بۆ ئەوەی تێک نەچێت */
         :root { --main: #2563eb; --accent: #10b981; --bg: #f8fafc; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #1e293b; text-align: right; direction: rtl; }
         header { background: var(--main); color: white; text-align: center; padding: 40px 20px; }
@@ -17,7 +16,7 @@
         .app-card { border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; text-align: center; background: #fff; }
         .buy-btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
         form { margin-top: 40px; padding: 20px; border-top: 4px solid var(--main); background: #fafafa; border-radius: 0 0 15px 15px; }
-        .field { margin-bottom: 15px; text-align: right; }
+        .field { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
         input, textarea, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-family: inherit; text-align: right; }
         .checkbox-area { background: #fff7ed; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; margin: 20px 0; border: 1px solid #ffedd5; }
@@ -28,8 +27,8 @@
 <body>
 
 <header>
-    <h1>پڕۆژەی هاوبەشی کورد کۆد 🤝</h1>
-    <p>بیرۆکەکەت لای ئێمە دەبێتە پڕۆژەی ژیانت</p>
+    <h1>پڕۆژەی هاوبەشی کورد کۆد & مادئەپ 🤝</h1>
+    <p>بیرۆکەکەت بدە بە کورد کۆد، لە مادئەپ دەبێتە ئەپی ئامادە</p>
 </header>
 
 <div class="container">
@@ -40,21 +39,22 @@
         <p style="font-size: 13px; color: #64748b;">* ئێمە تێچووی ئەپ ستۆر و کۆدنووسین لەئەستۆ دەگرین *</p>
     </div>
 
-    <h2 class="market-title">مارکێتی کورد کۆد</h2>
+    <h2 class="market-title">مارکێتی کورد کۆد (ئەپە ئامادەکان)</h2>
     <div class="app-grid">
         <div class="app-card">
             <div style="font-size: 40px;">📱</div>
-            <h4>ئەپی نموونەیی</h4>
+            <h4>ئەپی نموونەیی (مادئەپ)</h4>
             <p style="color: var(--accent); font-weight: bold;">٢٠,٠٠٠ د.ک</p>
-            <button class="buy-btn">کڕین</button>
+            <button class="buy-btn">کڕین و داگرتن</button>
         </div>
     </div>
 
+    <!-- فۆرمەکە بەستراوەتەوە بەو لینکەی بۆت داناوم -->
     <form action="https://formspree.io" method="POST">
-        <h2 style="text-align: center; color: var(--main);">ناردنی بیرۆکەی نوێ</h2>
+        <h2 style="text-align: center; color: var(--main);">ناردنی بیرۆکە بۆ کورد کۆد</h2>
         <div class="field">
             <label>ناوی تەواو:</label>
-            <input type="text" name="name" required>
+            <input type="text" name="name" placeholder="ناوەکەت بنووسە" required>
         </div>
         <div class="field">
             <label>جۆری پڕۆژە:</label>
@@ -64,14 +64,14 @@
             </select>
         </div>
         <div class="field">
-            <label>ڕوونکردنەوە:</label>
-            <textarea name="message" rows="4" required></textarea>
+            <label>ڕوونکردنەوەی بیرۆکە:</label>
+            <textarea name="message" rows="4" placeholder="باسی بیرۆکەکەت بکە..." required></textarea>
         </div>
         <div class="checkbox-area">
-            <input type="checkbox" required>
-            <label style="font-size: 13px;">کۆکم لەسەر ٢٠ هەزار دینار و پشکی ٪١٠.</label>
+            <input type="checkbox" name="agree" required>
+            <label style="font-size: 13px; margin: 0;">کۆکم لەسەر ٢٠ هەزار دینار و پشکی ٪١٠ بۆ کورد کۆد.</label>
         </div>
-        <button type="submit" class="submit-btn">ناردنی داواکاری</button>
+        <button type="submit" class="submit-btn">ناردن و دەستپێکردن</button>
     </form>
 </div>
 
