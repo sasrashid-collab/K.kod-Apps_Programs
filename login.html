@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<title>Login | KurdKod</title>
+</head>
+<body>
+
+<h2>چوونەژوور</h2>
+
+<form id="login">
+  <input type="email" id="email" placeholder="ئیمەیڵ" required><br><br>
+  <input type="password" id="password" placeholder="وشەی نهێنی" required><br><br>
+  <button>Login</button>
+</form>
+
+<script type="module">
+import { supabase } from "./supabase.js"
+
+document.getElementById("login").onsubmit = async (e) => {
+  e.preventDefault()
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
+
+  if (error) alert("هەڵە: " + error.message)
+  else window.location = "dashboard.html"
+}
+</script>
+
+</body>
+</html>
 
