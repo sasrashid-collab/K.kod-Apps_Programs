@@ -1,1 +1,33 @@
 
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard | KurdKod</title>
+</head>
+<body>
+
+<h2>بەخێربێیت بۆ داشبۆرد</h2>
+<p id="user"></p>
+<button id="logout">Logout</button>
+
+<script type="module">
+import { supabase } from "./supabase.js"
+
+const { data } = await supabase.auth.getUser()
+
+if (!data.user) {
+  window.location = "login.html"
+} else {
+  document.getElementById("user").innerText =
+    "ئیمەیڵ: " + data.user.email
+}
+
+document.getElementById("logout").onclick = async () => {
+  await supabase.auth.signOut()
+  window.location = "login.html"
+}
+</script>
+
+</body>
+</html>
