@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>KurdKod | داشبۆرد</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<script src="supabase.js"></script>
 <style>
 :root { --main:#2563eb; --accent:#10b981; --bg:#f8fafc; }
 body { font-family:'Noto Sans Arabic',sans-serif; background:var(--bg); color:#1e293b; direction:rtl; margin:0; padding:0; }
@@ -40,25 +41,33 @@ footer a:hover{text-decoration:underline;}
 
 <div class="container">
 <h2>📱 Apps / Programs</h2>
-<div class="app-grid">
-  <div class="app-card">
-    <div style="font-size:40px;">📱</div>
-    <h4>نمونه ئەپی مۆبایل</h4>
-    <p class="price">٢٠,٠٠٠ د.ک</p>
-    <button>کڕین و داگرتن</button>
-  </div>
-  <div class="app-card">
-    <div style="font-size:40px;">💻</div>
-    <h4>نمونه سایتی بازرگانی</h4>
-    <p class="price">٢٠,٠٠٠ د.ک</p>
-    <button>کڕین و داگرتن</button>
-  </div>
-</div>
+<div class="app-grid" id="appsGrid"></div>
 </div>
 
 <footer>
 <a href="idea-protection.html" target="_blank">سیاسەتی پاراستنی بیرۆکە و متمانە</a>
 </footer>
+
+<script>
+async function loadApps(){
+  const { data, error } = await supabase.from('apps').select('*');
+  if(error){ console.log(error); return; }
+  const grid = document.getElementById('appsGrid');
+  grid.innerHTML = '';
+  data.forEach(app=>{
+    const card = document.createElement('div');
+    card.className = 'app-card';
+    card.innerHTML = `
+      <div style="font-size:40px;">${app.icon || '📱'}</div>
+      <h4>${app.name}</h4>
+      <p class="price">${app.price} د.ک</p>
+      <button>کڕین و داگرتن</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+loadApps();
+</script>
 
 </body>
 </html>
