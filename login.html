@@ -1,40 +1,50 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<title>KurdKod | چوونە ژوور</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<script src="supabase.js"></script>
+<style>
+body{font-family:'Noto Sans Arabic',sans-serif;background:#f8fafc;color:#1e293b;direction:rtl;margin:0;padding:0;}
+.container{max-width:400px;margin:50px auto;background:white;padding:30px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+input{width:100%;padding:12px;margin-bottom:15px;border:1px solid #cbd5e1;border-radius:8px;box-sizing:border-box;}
+button{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+button:hover{background:#1e40af;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2 style="text-align:center;">چوونە ژوور بۆ KurdKod</h2>
+<form id="loginForm">
+<label>ناوی بەکارهێنەر</label>
+<input type="text" name="username" required>
+<label>وشەی نهێنی</label>
+<input type="password" name="password" required>
+<button type="submit">چوونە ژوور</button>
+</form>
+</div>
+
 <script>
 const loginForm = document.getElementById('loginForm');
-
-loginForm.addEventListener('submit', async (e) => {
+loginForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
-
   const username = loginForm.username.value;
   const password = loginForm.password.value;
 
-  try {
-    // Query Supabase users table
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('username', username)
-      .limit(1);
-
+  try{
+    const { data, error } = await supabase.from('users').select('*').eq('username', username).limit(1);
     if(error) throw error;
-
-    if(data.length === 0){
-      alert('ناوی بەکارهێنەر نەدۆزرایەوە');
-      return;
-    }
-
+    if(data.length===0){alert('ناوی بەکارهێنەر نەدۆزرایەوە'); return;}
     const user = data[0];
-
-    // Simple password check (replace with hashed password later)
-    if(user.password === password){
-      alert('چوونە ژوور سەرکەوتوو بوو! Redirecting...');
-      window.location.href = 'dashboard.html';
-    }else{
-      alert('وشەی نهێنی هەڵەیە!');
-    }
-
-  } catch(err){
-    console.error(err);
-    alert('هەڵە ڕویدا لە داواکاری Login');
-  }
+    if(user.password===password){
+      alert('چوونە ژوور سەرکەوتوو بوو!');
+      window.location.href='dashboard.html';
+    }else{alert('وشەی نهێنی هەڵەیە!');}
+  }catch(err){console.error(err); alert('هەڵە ڕویدا لە login');}
 });
 </script>
+
+</body>
+</html>
