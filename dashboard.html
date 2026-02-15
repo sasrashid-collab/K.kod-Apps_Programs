@@ -2,59 +2,154 @@
 <html lang="ku">
 <head>
 <meta charset="UTF-8">
-<title>KurdKod | داشبۆرد</title>
+<title>Dashboard | KurdKod</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
-<script src="supabase.js"></script>
+
 <style>
-:root{--main:#2563eb;--accent:#10b981;--bg:#f8fafc;}
-body{font-family:'Noto Sans Arabic',sans-serif;background:var(--bg);color:#1e293b;direction:rtl;margin:0;padding:0;}
-header{background:var(--main);color:white;padding:20px;text-align:center;}
-nav{display:flex;justify-content:center;background:#f0f4f8;padding:10px;gap:15px;}
-nav a{text-decoration:none;color:#1e293b;font-weight:bold;padding:8px 15px;border-radius:6px;transition:0.3s;}
-nav a:hover{background:var(--accent);color:white;}
-.container{max-width:960px;margin:30px auto;padding:0 20px;}
-h2{border-right:5px solid var(--main);padding-right:10px;margin-bottom:20px;font-size:1.5em;}
-.app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
-.app-card{background:white;padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.1);text-align:center;transition:0.3s;}
-.app-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.15);}
-.app-card h4{margin:15px 0 10px;font-size:1.2em;}
-.app-card .price{font-weight:bold;color:var(--accent);margin-bottom:10px;}
-.app-card button{padding:10px;border:none;border-radius:6px;width:100%;font-weight:bold;cursor:pointer;background:var(--main);color:white;transition:0.3s;}
-.app-card button:hover{background:#1e40af;}
-footer{text-align:center;font-size:14px;margin:50px 0 20px;color:#555;}
-footer a{color:var(--main);text-decoration:none;}
-footer a:hover{text-decoration:underline;}
+body {
+  margin: 0;
+  font-family: "Noto Sans Arabic", sans-serif;
+  background: #f1f5f9;
+  direction: rtl;
+}
+
+header {
+  background: #2563eb;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+}
+
+.card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border-right: 6px solid #16a34a;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+button {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #15803d;
+}
+
+.logout {
+  background: #dc2626;
+}
+
+.logout:hover {
+  background: #b91c1c;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  margin-top: 10px;
+  font-family: inherit;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #555;
+  font-size: 14px;
+}
 </style>
 </head>
+
 <body>
-<header><h1>داشبۆردی KurdKod</h1></header>
-<nav>
-<a href="index.html">سەرەکی</a>
-<a href="register.html">خۆتۆمارکردن</a>
-<a href="login.html">چوونە ژوور</a>
-</nav>
+
+<header>
+  <h1>داشبۆردی KurdKod</h1>
+  <p>بەخێربێیت، ئەم شوێنە بۆ گەنجان و بیرۆکەکانە 🌱</p>
+</header>
+
 <div class="container">
-<h2>📱 Apps / Programs</h2>
-<div class="app-grid" id="appsGrid"></div>
+
+  <div class="card">
+    <h3>👤 زانیاری بەکارهێنەر</h3>
+    <p id="userInfo">چاوەڕوانی زانیاری...</p>
+    <button class="logout" onclick="logout()">چوونەدەر</button>
+  </div>
+
+  <div class="card">
+    <h3>💡 ناردنی بیرۆکە بۆ KurdKod</h3>
+    <p>بیرۆکەت بنووسە، زیرەکی دەستکرد و مادئەپ کاری لەسەر دەکەن.</p>
+
+    <textarea id="ideaText" rows="5" placeholder="بیرۆکەکەت لێرە بنووسە..."></textarea>
+    <br><br>
+    <button onclick="submitIdea()">ناردنی بیرۆکە</button>
+  </div>
+
+  <div class="card">
+    <h3>🤖 زیرەکی دەستکرد (AI)</h3>
+    <p>AI بیرۆکەت هەڵدەسەنگێنێت و ڕێنمایی دەدات.</p>
+    <button onclick="aiHelp()">یارمەتی AI</button>
+    <p id="aiResult" style="margin-top:10px;color:#2563eb;"></p>
+  </div>
+
 </div>
-<footer><a href="idea-protection.html" target="_blank">سیاسەتی پاراستنی بیرۆکە و متمانە</a></footer>
+
+<footer>
+  © 2026 KurdKod | هاوبەشی گەنجان
+</footer>
+
 <script>
-async function loadApps(){
-  const { data, error } = await supabase.from('apps').select('*');
-  if(error){ console.log(error); return; }
-  const grid = document.getElementById('appsGrid');
-  grid.innerHTML='';
-  data.forEach(app=>{
-    const card = document.createElement('div');
-    card.className='app-card';
-    card.innerHTML=`<div style="font-size:40px;">${app.icon||'📱'}</div>
-    <h4>${app.name}</h4>
-    <p class="price">${app.price} د.ک</p>
-    <button>کڕین و داگرتن</button>`;
-    grid.appendChild(card);
-  });
-}
-loadApps();
+  // Login check
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    document.getElementById("userInfo").innerText =
+      "ناو: " + user.username;
+  }
+
+  function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  }
+
+  function submitIdea() {
+    const idea = document.getElementById("ideaText").value;
+    if (!idea) {
+      alert("تکایە بیرۆکەکە بنووسە ✍️");
+      return;
+    }
+    alert("بیرۆکەت ناردرا ✅ (لە قۆناغی داهاتوودا ئەمە دەچێت بۆ Supabase)");
+    document.getElementById("ideaText").value = "";
+  }
+
+  function aiHelp() {
+    document.getElementById("aiResult").innerText =
+      "AI پێشنیار دەکات: ئەم بیرۆکەیە دەتوانرێت ببێتە ئەپی مۆبایل بۆ بازاڕی کوردستان 📱🚀";
+  }
 </script>
+
 </body>
 </html>
