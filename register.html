@@ -1,58 +1,7 @@
-<!DOCTYPE html>
-<html lang="ku">
-<head>
-<meta charset="UTF-8">
-<title>KurdKod | خۆتۆمارکردن</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root { --main:#2563eb; --accent:#10b981; --bg:#f8fafc; }
-body { font-family:'Noto Sans Arabic',sans-serif; background:var(--bg); color:#1e293b; direction:rtl; margin:0; padding:0; }
-.container { max-width:500px; margin:60px auto; background:white; padding:30px; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); }
-h1 { text-align:center; color:var(--main); margin-bottom:25px; }
-form .field { margin-bottom:15px; }
-label { display:block; margin-bottom:5px; font-weight:bold; }
-input, select, textarea { width:100%; padding:12px; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit; }
-.checkbox-area { display:flex; align-items:center; gap:10px; margin:15px 0; background:#fff7ed; padding:12px; border-radius:8px; border:1px solid #ffedd5; }
-.submit-btn { width:100%; padding:15px; border:none; border-radius:8px; background:var(--main); color:white; font-size:16px; cursor:pointer; transition:0.3s; font-weight:bold; }
-.submit-btn:hover { background:#1e40af; }
-p.login-link { text-align:center; margin-top:15px; }
-p.login-link a { color:var(--main); text-decoration:none; font-weight:bold; }
-p.login-link a:hover { text-decoration:underline; }
-</style>
-</head>
-<body>
-
-<div class="container">
-<h1>خۆتۆمارکردن</h1>
-<form action="https://formspree.io/f/xykdwpeq" method="POST">
-  <div class="field">
-    <label>ناوی تەواو</label>
-    <input type="text" name="name" placeholder="ناوەکەت لێرە بنووسە" required>
-  </div>
-  <div class="field">
-    <label>ئیمەیل / ژمارەی پەیوەندی</label>
-    <input type="text" name="contact" placeholder="مثال: email@domain.com" required>
-  </div>
-  <div class="field">
-    <label>جۆری پڕۆژە</label>
-    <select name="type">
-      <option value="app">ئەپڵیکەیشنی مۆبایل</option>
-      <option value="web">سایتی بازرگانی</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>ڕوونکردنەوەی بیرۆکە</label>
-    <textarea name="message" rows="4" placeholder="باسی بیرۆکەکەت بکە..." required></textarea>
-  </div>
-  <div class="checkbox-area">
-    <input type="checkbox" name="agree" required>
-    <label>کۆکم لەسەر ٢٠ هەزار دینار و پشکی ٪١٠ بۆ کورد کۆد.</label>
-  </div>
-  <button type="submit" class="submit-btn">ناردن و دەستپێکردن</button>
-</form>
-
-<p class="login-link">هەیە هەژمار؟ <a href="login.html">چوونەژوور</a></p>
-</div>
-
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+// Supabase client setup
+const SUPABASE_URL = "https://wdhmqolpasgustsrqjql.supabase.co";
+const SUPABASE_KEY = "sb_publishable_zOct4jcFN9RnngxHOyVWqQ_bYPRiEJI";
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
