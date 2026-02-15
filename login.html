@@ -2,42 +2,37 @@
 <html lang="ku">
 <head>
 <meta charset="UTF-8">
-<title>Login | KurdKod Admin</title>
+<title>چوونەژوور | KurdKod Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
 <style>
 body { font-family:'Noto Sans Arabic',sans-serif; background:#f8fafc; direction:rtl; margin:0; color:#1f2937; text-align:center; }
 .container { max-width:400px; margin:100px auto; padding:30px; background:white; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.1); }
-input { width:100%; padding:12px; margin:10px 0; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; font-family:inherit; }
+input { width:100%; padding:12px; margin:10px 0; border:1px solid #cbd5e1; border-radius:6px; }
 button { background:#2563eb; color:white; border:none; padding:12px; border-radius:6px; width:100%; cursor:pointer; font-weight:bold; }
 button:hover { background:#1e40af; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h2>Login | KurdKod Admin</h2>
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="password" placeholder="Password" required>
-  <button onclick="login()">چوونە ژوور</button>
-  <p id="msg" style="color:red; margin-top:10px;"></p>
+<h2>Login | KurdKod Admin</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">چوونە ژوور</button>
+<p id="msg" style="color:red; margin-top:10px;"></p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Supabase config
 const supabaseUrl = "https://jghcjxlwiizprsmuvnoz.supabase.co";
 const supabaseKey = "sb_publishable_a_xw7b8TnitjSB6MCOC3Pg_T0NB15bO";
 const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
 
-// Login function
-async function login() {
+async function login(){
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if(error) {
-    document.getElementById('msg').innerText = error.message;
-  } else {
-    window.location.href = "dashboard.html";
-  }
+  if(error) document.getElementById('msg').innerText = error.message;
+  else window.location.href = "dashboard.html";
 }
 </script>
 </body>
