@@ -1,40 +1,73 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<title>KurdKod | داشبۆرد</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<script src="supabase.js"></script>
+<style>
+:root { --main:#2563eb; --accent:#10b981; --bg:#f8fafc; }
+body { font-family:'Noto Sans Arabic',sans-serif; background:var(--bg); color:#1e293b; direction:rtl; margin:0; padding:0; }
+header { background:var(--main); color:white; padding:20px; text-align:center; }
+header h1 { margin:0; font-size:2em; }
+nav { display:flex; justify-content:center; background:#f0f4f8; padding:10px; gap:15px; }
+nav a { text-decoration:none; color:#1e293b; font-weight:bold; padding:8px 15px; border-radius:6px; transition:0.3s; }
+nav a:hover { background:var(--accent); color:white; }
+.container { max-width:960px; margin:30px auto; padding:0 20px; }
+h2 { border-right:5px solid var(--main); padding-right:10px; margin-bottom:20px; font-size:1.5em; }
+.app-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+.app-card { background:white; padding:20px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.1); text-align:center; transition:0.3s; }
+.app-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15); }
+.app-card h4 { margin:15px 0 10px; font-size:1.2em; }
+.app-card .price { font-weight:bold; color:var(--accent); margin-bottom:10px; }
+.app-card button { padding:10px; border:none; border-radius:6px; width:100%; font-weight:bold; cursor:pointer; background:var(--main); color:white; transition:0.3s; }
+.app-card button:hover { background:#1e40af; }
+footer{text-align:center;font-size:14px;margin:50px 0 20px;color:#555;}
+footer a{color:var(--main);text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>داشبۆردی KurdKod</h1>
+</header>
+
+<nav>
+<a href="index.html">سەرەکی</a>
+<a href="register.html">خۆتۆمارکردن</a>
+<a href="login.html">چوونە ژوور</a>
+</nav>
+
+<div class="container">
+<h2>📱 Apps / Programs</h2>
+<div class="app-grid" id="appsGrid"></div>
+</div>
+
+<footer>
+<a href="idea-protection.html" target="_blank">سیاسەتی پاراستنی بیرۆکە و متمانە</a>
+</footer>
+
 <script>
-const loginForm = document.getElementById('loginForm');
-
-loginForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const username = loginForm.username.value;
-  const password = loginForm.password.value;
-
-  try {
-    // Query Supabase users table
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('username', username)
-      .limit(1);
-
-    if(error) throw error;
-
-    if(data.length === 0){
-      alert('ناوی بەکارهێنەر نەدۆزرایەوە');
-      return;
-    }
-
-    const user = data[0];
-
-    // Simple password check (replace with hashed password later)
-    if(user.password === password){
-      alert('چوونە ژوور سەرکەوتوو بوو! Redirecting...');
-      window.location.href = 'dashboard.html';
-    }else{
-      alert('وشەی نهێنی هەڵەیە!');
-    }
-
-  } catch(err){
-    console.error(err);
-    alert('هەڵە ڕویدا لە داواکاری Login');
-  }
-});
+async function loadApps(){
+  const { data, error } = await supabase.from('apps').select('*');
+  if(error){ console.log(error); return; }
+  const grid = document.getElementById('appsGrid');
+  grid.innerHTML = '';
+  data.forEach(app=>{
+    const card = document.createElement('div');
+    card.className = 'app-card';
+    card.innerHTML = `
+      <div style="font-size:40px;">${app.icon || '📱'}</div>
+      <h4>${app.name}</h4>
+      <p class="price">${app.price} د.ک</p>
+      <button>کڕین و داگرتن</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+loadApps();
 </script>
+
+</body>
+</html>
