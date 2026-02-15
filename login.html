@@ -8,13 +8,12 @@
 <style>
 body{font-family:'Noto Sans Arabic',sans-serif;background:#f8fafc;color:#1e293b;direction:rtl;margin:0;padding:0;}
 .container{max-width:400px;margin:50px auto;background:white;padding:30px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}
-input{width:100%;padding:12px;margin-bottom:15px;border:1px solid #cbd5e1;border-radius:8px;box-sizing:border-box;}
+input{width:100%;padding:12px;margin-bottom:15px;border:1px solid #cbd5e1;border-radius:8px;}
 button{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
 button:hover{background:#1e40af;}
 </style>
 </head>
 <body>
-
 <div class="container">
 <h2 style="text-align:center;">چوونە ژوور بۆ KurdKod</h2>
 <form id="loginForm">
@@ -38,13 +37,10 @@ loginForm.addEventListener('submit', async (e)=>{
     if(error) throw error;
     if(data.length===0){alert('ناوی بەکارهێنەر نەدۆزرایەوە'); return;}
     const user = data[0];
-    if(user.password===password){
-      alert('چوونە ژوور سەرکەوتوو بوو!');
-      window.location.href='dashboard.html';
-    }else{alert('وشەی نهێنی هەڵەیە!');}
+    if(user.password===password){alert('چوونە ژوور سەرکەوتوو بوو!'); window.location.href='dashboard.html';}
+    else{alert('وشەی نهێنی هەڵەیە!');}
   }catch(err){console.error(err); alert('هەڵە ڕویدا لە login');}
 });
 </script>
-
 </body>
 </html>
