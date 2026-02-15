@@ -2,25 +2,23 @@
 <html lang="ku">
 <head>
 <meta charset="UTF-8">
-<title>Admin Dashboard | KurdKod</title>
+<title>Dashboard | KurdKod Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body{font-family:'Noto Sans Arabic',sans-serif; background:#f8fafc; direction:rtl; margin:0; color:#1f2937;}
-header{background:#2563eb; color:white; padding:35px; text-align:center;}
-section{max-width:900px; margin:30px auto; background:white; padding:25px; border-radius:14px; box-shadow:0 0 15px rgba(0,0,0,0.05);}
-h2{border-right:5px solid #2563eb; padding-right:10px;}
-.step{background:#f1f5f9; padding:15px; border-radius:8px; margin:10px 0;}
-table{width:100%; border-collapse:collapse; margin-top:15px;}
-th,td{border:1px solid #cbd5e1; padding:8px; text-align:right;}
+body{font-family:'Noto Sans Arabic',sans-serif;background:#f8fafc;direction:rtl;margin:0;color:#1f2937;}
+header{background:#2563eb;color:white;padding:35px;text-align:center;}
+section{max-width:900px;margin:30px auto;background:white;padding:25px;border-radius:14px;box-shadow:0 0 15px rgba(0,0,0,0.05);}
+h2{border-right:5px solid #2563eb;padding-right:10px;}
+table{width:100%;border-collapse:collapse;margin-top:15px;}
+th,td{border:1px solid #cbd5e1;padding:8px;text-align:right;}
 th{background:#eff6ff;}
-footer{text-align:center; font-size:14px; margin:40px 0; color:#555;}
+footer{text-align:center;font-size:14px;margin:40px 0;color:#555;}
 </style>
 </head>
 <body>
-
 <header>
-  <h1>KurdKod Admin Dashboard</h1>
-  <p>هەموو بیرۆکەکانت لەوێ دەبینیت</p>
+<h1>KurdKod Admin Dashboard</h1>
+<p>هەموو بیرۆکەکانت لەوێ دەبینیت</p>
 </header>
 
 <section>
@@ -31,14 +29,7 @@ footer{text-align:center; font-size:14px; margin:40px 0; color:#555;}
 </table>
 </section>
 
-<section>
-<h2>🤖 زیرەکی دەستکرد (AI)</h2>
-<p><a href="ai.html">خوێندنەوەی چۆنیەتی کارکردنی زیرەکی دەستکرد</a></p>
-</section>
-
-<footer>
-© KurdKod – هاوبەشی گەنجان
-</footer>
+<footer>© KurdKod – هاوبەشی گەنجان</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -46,25 +37,19 @@ const supabaseUrl = "https://jghcjxlwiizprsmuvnoz.supabase.co";
 const supabaseKey = "sb_publishable_a_xw7b8TnitjSB6MCOC3Pg_T0NB15bO";
 const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
 
-// Check user login
 supabase.auth.onAuthStateChange((event, session) => {
   if(!session) window.location.href = "login.html";
 });
 
-// Fetch ideas
 async function loadIdeas() {
-  let { data, error } = await supabase.from('ideas').select('*');
-  if(data){
-    const tbody = document.getElementById('ideas');
-    tbody.innerHTML = '';
-    data.forEach(item => {
-      let tr = `<tr><td>${item.name}</td><td>${item.type}</td><td>${item.message}</td></tr>`;
-      tbody.innerHTML += tr;
-    });
-  }
+  let { data } = await supabase.from('ideas').select('*');
+  const tbody = document.getElementById('ideas');
+  tbody.innerHTML = '';
+  data.forEach(item => {
+    tbody.innerHTML += `<tr><td>${item.name}</td><td>${item.type}</td><td>${item.message}</td></tr>`;
+  });
 }
 loadIdeas();
 </script>
-
 </body>
 </html>
