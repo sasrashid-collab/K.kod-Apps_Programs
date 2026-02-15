@@ -1,7 +1,77 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<title>KurdKod | خۆتۆمارکردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<script src="supabase.js"></script>
+<style>
+body{font-family:'Noto Sans Arabic',sans-serif;background:#f8fafc;color:#1e293b;direction:rtl;margin:0;padding:0;}
+.container{max-width:600px;margin:50px auto;background:white;padding:30px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+input, select, textarea{width:100%;padding:12px;margin-bottom:15px;border:1px solid #cbd5e1;border-radius:8px;box-sizing:border-box;}
+button{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+button:hover{background:#1e40af;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2 style="text-align:center;">خۆتۆمارکردن بۆ KurdKod</h2>
+<form id="registerForm">
+<label>ناو</label>
+<input type="text" name="name" required>
+
+<label>پەیوەندی (email یان فاست‌پەی)</label>
+<input type="text" name="contact" required>
+
+<label>جۆری پڕۆژە</label>
+<select name="type">
+  <option value="app">ئەپلیکەیشنی مۆبایل</option>
+  <option value="web">سایتی بازرگانی</option>
+</select>
+
+<label>ڕوونکردنەوەی بیرۆکە</label>
+<textarea name="message" rows="4" required></textarea>
+
+<div>
+<input type="checkbox" name="agree" required> من ڕازیم بە ٢٠,٠٠٠ د.ک و پشکی ١٠٪ بۆ KurdKod
+</div>
+
+<button type="submit">ناردن و تۆمارکردن</button>
+</form>
+</div>
+
 <script>
-// Supabase client setup
-const SUPABASE_URL = "https://wdhmqolpasgustsrqjql.supabase.co";
-const SUPABASE_KEY = "sb_publishable_zOct4jcFN9RnngxHOyVWqQ_bYPRiEJI";
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const form = document.getElementById('registerForm');
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const name = form.name.value;
+  const contact = form.contact.value;
+  const type = form.type.value;
+  const message = form.message.value;
+
+  // Supabase insert
+  const { data, error } = await supabase.from('users').insert([
+    { username:name, email:contact, project_type:type, message:message }
+  ]);
+
+  if(error){
+    alert('هەڵە لە ناردنی زانیاری بۆ Supabase');
+    console.log(error);
+    return;
+  }
+
+  // Formspree submit
+  fetch("https://formspree.io/f/xykdwpeq", {
+    method:"POST",
+    body:new FormData(form),
+    headers:{ 'Accept': 'application/json' }
+  }).then(r=>{
+    if(r.ok){alert("Sign up successfully!"); form.reset();}
+    else{alert("Formspree submission failed!");}
+  });
+});
 </script>
+
+</body>
+</html>
