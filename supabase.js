@@ -1,12 +1,40 @@
-// supabase.js
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+<script>
+const loginForm = document.getElementById('loginForm');
 
-export const supabase = createClient(
-  "https://jghcjxlwiizprsmuvnoz.supabase.co",
-  "sb_publishable_a_xw7b8TnitjSB6MCOC3Pg_T0NB15bO"
-)
-<footer style="text-align:center; font-size:14px; margin-top:40px; color:#555;">
-  <a href="idea-protection.html" target="_blank" style="color:#2563eb; text-decoration:none;">
-    سیاسەتی پاراستنی بیرۆکە و متمانە
-  </a>
-</footer>
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const username = loginForm.username.value;
+  const password = loginForm.password.value;
+
+  try {
+    // Query Supabase users table
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('username', username)
+      .limit(1);
+
+    if(error) throw error;
+
+    if(data.length === 0){
+      alert('ناوی بەکارهێنەر نەدۆزرایەوە');
+      return;
+    }
+
+    const user = data[0];
+
+    // Simple password check (replace with hashed password later)
+    if(user.password === password){
+      alert('چوونە ژوور سەرکەوتوو بوو! Redirecting...');
+      window.location.href = 'dashboard.html';
+    }else{
+      alert('وشەی نهێنی هەڵەیە!');
+    }
+
+  } catch(err){
+    console.error(err);
+    alert('هەڵە ڕویدا لە داواکاری Login');
+  }
+});
+</script>
