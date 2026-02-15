@@ -5,20 +5,67 @@
 <title>KurdKod | هاوبەشی گەنجان</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { font-family:'Noto Sans Arabic',sans-serif; background:#f8fafc; text-align:center; direction:rtl; margin:0; color:#1f2937; }
-header { background:#2563eb; color:white; padding:40px 20px; }
-a { margin:0 10px; color:#2563eb; text-decoration:none; font-weight:bold; }
-footer { text-align:center; font-size:14px; margin-top:40px; color:#555; }
+:root {
+  --main: #2563eb;
+  --accent: #10b981;
+  --bg: #f8fafc;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family:'Noto Sans Arabic',sans-serif; background:var(--bg); color:#1e293b; direction:rtl; }
+header { background:var(--main); color:white; text-align:center; padding:60px 20px; }
+header h1 { font-size:2.5em; margin-bottom:10px; }
+header p { font-size:1.2em; margin-top:5px; }
+.header-links a { margin:0 12px; color:white; text-decoration:none; font-weight:bold; padding:8px 20px; border-radius:6px; background:var(--accent); transition:0.3s; }
+.header-links a:hover { background:#0f9a6e; }
+
+section { max-width:900px; margin:40px auto; padding:0 20px; }
+h2 { border-right:5px solid var(--main); padding-right:10px; margin-bottom:20px; font-size:1.5em; }
+
+.app-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+.app-card { background:white; padding:20px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); text-align:center; transition:0.3s; }
+.app-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15); }
+.app-card h4 { margin:15px 0 10px; font-size:1.2em; }
+.app-card .price { font-weight:bold; color:var(--accent); margin-bottom:10px; }
+.app-card button { padding:10px; border:none; border-radius:6px; width:100%; font-weight:bold; cursor:pointer; background:var(--main); color:white; transition:0.3s; }
+.app-card button:hover { background:#1e40af; }
+
+footer { text-align:center; font-size:14px; margin:50px 0 20px; color:#555; }
+footer a { color:var(--main); text-decoration:none; }
+footer a:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
+
 <header>
 <h1>بەخێربێیت بۆ KurdKod</h1>
-<p><a href="register.html">خۆتۆمارکردن</a> | <a href="login.html">چوونەژوور</a></p>
+<p>هاوبەشی گەنجان و پڕۆژەکانت</p>
+<div class="header-links">
+  <a href="register.html">خۆتۆمارکردن</a>
+  <a href="login.html">چوونەژوور</a>
+</div>
 </header>
+
+<section>
+<h2>📱 Featured Apps / Programs</h2>
+<div class="app-grid">
+  <div class="app-card">
+    <div style="font-size:40px;">📱</div>
+    <h4>نمونه ئەپی مۆبایل</h4>
+    <p class="price">٢٠,٠٠٠ د.ک</p>
+    <button>کڕین و داگرتن</button>
+  </div>
+  <div class="app-card">
+    <div style="font-size:40px;">💻</div>
+    <h4>نمونه سایتی بازرگانی</h4>
+    <p class="price">٢٠,٠٠٠ د.ک</p>
+    <button>کڕین و داگرتن</button>
+  </div>
+</div>
+</section>
 
 <footer>
 <a href="idea-protection.html" target="_blank">سیاسەتی پاراستنی بیرۆکە و متمانە</a>
 </footer>
+
 </body>
 </html>
